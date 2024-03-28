@@ -6,13 +6,17 @@ app = Flask(__name__)
 CORS(app)
 
 # Connect to MongoDB
-# client = MongoClient('mongodb://mongo:27017/')
-# db = client.webapp_db
+client = MongoClient('mongodb://mongo:27017/')
+db = client.webapp_db
+
+@app.route('/')
+def home():
+    return "Hello, World!"
 
 @app.route('/register', methods=['POST'])
 def register():
     user_data = request.json
-    # db.users.insert_one(user_data)
+    db.users.insert_one(user_data)
     return jsonify({"message": "User registered successfully!"})
 
 if __name__ == '__main__':
